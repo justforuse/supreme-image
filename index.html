@@ -34,6 +34,7 @@
         </div>
         <div class="operation-container">
           <input ref="file" type="file" @change="handleChange" />
+          <h6>image</h6>
           <p>
             blur:
             <input type="range" v-model="imgBlur" max="10" min="0" step="1" />
@@ -42,6 +43,7 @@
             grey:
             <input type="range" v-model="imgGray" max="100" min="0" step="10" />
           </p>
+          <h6>supreme</h6>
           <p>image:
             <input v-model="imgType" type="radio" name="type" :value="1">1
             <input v-model="imgType" type="radio" name="type" :value="2">2
