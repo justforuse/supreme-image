@@ -1,0 +1,24 @@
+.d-f {
+  display: flex;
+  align-items: flex-start;
+}
+.p-a {
+  position: absolute;
+}
+.img-container {
+  max-width: 500px;
+  position: relative;
+}
+.operation-container {
+  padding-left: 20px;
+}
+.w-full {
+  width: 100%;
+}
+.supreme {
+  top: 50%;
+  width: 80%;
+}
+.x-center {
+  left: 50%;
+}

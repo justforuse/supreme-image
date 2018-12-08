@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Supreme Image</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  </head>
+  <body>
+    <h3>Supreme style image</h3>
+    <div id="app">
+      <div class="d-f">
+        <div class="img-container" id="result">
+          <img
+            ref="backImg"
+            src="./shiyuan.jpg"
+            :style="{
+            filter: 'grayscale(' + imgGray + '%) blur(' + imgBlur + 'px)'
+          }"
+            class="w-full"
+          />
+          <img
+            :src="'./supreme-' + imgType + '.png'"
+            :style="{
+            top: imgTop + '%',
+            opacity: imgOpacity,
+            transform: 'translateX(-50%) scale(' + imgSize + ')'
+          }"
+            class="supreme p-a x-center"
+          />
+        </div>
+        <div class="operation-container">
+          <input ref="file" type="file" @change="handleChange" />
+          <p>
+            blur:
+            <input type="range" v-model="imgBlur" max="10" min="0" step="1" />
+          </p>
+          <p>
+            grey:
+            <input type="range" v-model="imgGray" max="100" min="0" step="10" />
+          </p>
+          <p>image:
+            <input v-model="imgType" type="radio" name="type" :value="1">1
+            <input v-model="imgType" type="radio" name="type" :value="2">2
+            <input v-model="imgType" type="radio" name="type" :value="3">3
+          </p>
+          <p>top: <input type="range" v-model="imgTop" max="80" /></p>
+          <p>
+            size:
+            <input
+              type="range"
+              v-model="imgSize"
+              max="1.2"
+              min="0.2"
+              step="0.1"
+            />
+          </p>
+          <p>
+            opacity:
+            <input
+              type="range"
+              v-model="imgOpacity"
+              max="1"
+              min="0"
+              step="0.1"
+            />
+          </p>
+          <p>
+            <a id="download"></a>
+            <button @click="handleSave">保存</button>
+            (灰度和模糊下载图片不生效,需要手动截图😥)
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          imgGray: 0,
+          imgBlur: 0,
+          imgType: 1,
+          imgTop: 55,
+          imgSize: 1,
+          imgOpacity: 1
+        },
+        methods: {
+          handleChange() {
+            this.$refs.backImg.setAttribute(
+              'src',
+              window.URL.createObjectURL(this.$refs.file.files[0])
+            )
+          },
+          handleSave() {
+            html2canvas(document.querySelector('#result'), {
+              useCORS: true
+            }).then(canvas => {
+              document.getElementById('download').href = canvas.toDataURL()
+              document.getElementById('download').download = 'image.png'
+              document.getElementById('download').click()
+            })
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
